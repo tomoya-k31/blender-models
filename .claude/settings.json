@@ -1,12 +1,12 @@
 {
   "hooks": {
-    "PostToolUse": [
+    "PreToolUse": [
       {
-        "matcher": "Write|Edit",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path // .tool_response.filePath' | { read -r f; case \"$f\" in *.py) uv run ruff format \"$f\";; esac; } 2>/dev/null || true"
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/ruff-format-on-commit.sh\""
           }
         ]
       }
